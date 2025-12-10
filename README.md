@@ -33,6 +33,7 @@ This is a responsive, feature-rich e-commerce frontend application built with Re
     * Add your Google Client ID (obtained from Google Cloud Console):
         ```
         Add your [YOUR_CLIENT_ID] generated from your own google account
+        my client ID for Google Auth [315144209098-iaijlrckng2pgpbdpq3dchr9scgo29pd.apps.googleusercontent.com]
         ```
 
 4.  **Start the Development Server:**
