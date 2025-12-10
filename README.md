@@ -16,9 +16,9 @@ This is a responsive, feature-rich e-commerce frontend application built with Re
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [YOUR-REPO-LINK]
+    git clone [https://github.com/SatyamDevGenie/CompanyTask.git]
     # Replace [YOUR-REPO-LINK] with your actual repository URL
-    cd [repo-name] 
+    cd [CompanyTask] 
     ```
 
 2.  **Install Dependencies:**
@@ -29,10 +29,10 @@ This is a responsive, feature-rich e-commerce frontend application built with Re
     ```
 
 3.  **Setup Google OAuth:**
-    * Create a `.env` file in the root directory.
+    * No need to create `.env` file in the root directory.
     * Add your Google Client ID (obtained from Google Cloud Console):
         ```
-        REACT_APP_GOOGLE_CLIENT_ID=[YOUR_CLIENT_ID]
+        Add your [YOUR_CLIENT_ID] generated from your own google account
         ```
 
 4.  **Start the Development Server:**
@@ -41,7 +41,7 @@ This is a responsive, feature-rich e-commerce frontend application built with Re
     # or
     yarn start
     ```
-    The application will open in your browser, usually at `http://localhost:3000`.
+    The application will open in your browser, usually at `http://localhost:5173`.
 
 ## ⚙️ Implemented Features
 

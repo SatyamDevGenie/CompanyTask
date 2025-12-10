@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFromWishlist } from '../features/wishlist/wishlistSlice';
 import { addToCart } from '../features/cart/cartSlice';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom'; // Import Link for empty state button
+import { Link } from 'react-router-dom'; 
 
 const WishlistItem = ({ item }) => {
     const dispatch = useDispatch();
@@ -22,7 +22,6 @@ const WishlistItem = ({ item }) => {
     };
 
     return (
-        // Enhanced structure: stacks on mobile (flex-col) and switches to horizontal (sm:flex-row)
         <div className="bg-white p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-gray-200 hover:bg-gray-50 transition duration-150 gap-3">
             
             {/* Item Details */}

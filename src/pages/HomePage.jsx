@@ -53,9 +53,17 @@ const ProductCard = ({ product }) => {
 
 const HomePage = () => {
     return (
-        <div className="container mx-auto p-4">
-            <h2 className="text-3xl font-bold mb-8 text-gray-800">Featured Products</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="container mx-auto p-4 md:p-8">
+            {/* Fancy Header */}
+            <div className="text-center mb-12 py-6 bg-gray-50 rounded-xl shadow-inner">
+                <h2 className="text-3xl font-extrabold text-gray-900 leading-tight">
+                    <span className="block text-indigo-600">Discovering</span> Our Featured Products
+                </h2>
+                <p className="text-xl text-gray-500 mt-2">Premium gadgets and essentials delivered to your door.</p>
+            </div>
+
+            {/* Product Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 {products.map(product => (
                     <ProductCard key={product.id} product={product} />
                 ))}

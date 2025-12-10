@@ -27,7 +27,6 @@ const CartItem = ({ item }) => {
     };
 
     return (
-        // Changed to use flex-col on mobile, flex-row on larger screens
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b py-4 gap-3 sm:gap-4">
             
             {/* Item Name and Price */}
@@ -36,10 +35,8 @@ const CartItem = ({ item }) => {
                 <p className="text-gray-500 text-sm">Unit Price: ${item.price.toFixed(2)}</p>
             </div>
 
-            {/* Controls, Total Price, and Remove Button */}
             <div className="flex items-center justify-between w-full sm:w-auto space-x-4">
                 
-                {/* Quantity Controls */}
                 <div className="flex items-center border rounded-lg shadow-sm">
                     <button 
                         onClick={handleDecrease} 
@@ -58,7 +55,6 @@ const CartItem = ({ item }) => {
                     </button>
                 </div>
 
-                {/* Total Item Price (Hidden on mobile for better stacking, shown alongside quantity) */}
                 <p className="text-xl font-bold text-gray-800 w-20 text-right hidden sm:block">
                     ${(item.price * item.quantity).toFixed(2)}
                 </p>
@@ -73,7 +69,6 @@ const CartItem = ({ item }) => {
                 </button>
             </div>
             
-            {/* Total Item Price for Mobile (Visible only on mobile for better total display) */}
             <div className="sm:hidden w-full text-right font-bold text-lg pt-2 border-t border-dashed sm:border-none">
                 Subtotal: ${(item.price * item.quantity).toFixed(2)}
             </div>
