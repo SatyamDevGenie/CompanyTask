@@ -27,33 +27,55 @@ const CartItem = ({ item }) => {
     };
 
     return (
-        <div className="flex items-center justify-between border-b py-4">
-            <div className="flex-1">
-                <p className="font-semibold text-lg">{item.name}</p>
-                <p className="text-gray-500">${item.price.toFixed(2)} each</p>
+        // Changed to use flex-col on mobile, flex-row on larger screens
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b py-4 gap-3 sm:gap-4">
+            
+            {/* Item Name and Price */}
+            <div className="flex-1 min-w-[50%]"> 
+                <p className="font-semibold text-lg text-gray-800">{item.name}</p>
+                <p className="text-gray-500 text-sm">Unit Price: ${item.price.toFixed(2)}</p>
             </div>
 
-            <div className="flex items-center space-x-4">
+            {/* Controls, Total Price, and Remove Button */}
+            <div className="flex items-center justify-between w-full sm:w-auto space-x-4">
+                
                 {/* Quantity Controls */}
-                <div className="flex items-center border rounded-lg">
-                    <button onClick={handleDecrease} className="px-3 py-1 text-lg hover:bg-gray-100 rounded-l-lg">
+                <div className="flex items-center border rounded-lg shadow-sm">
+                    <button 
+                        onClick={handleDecrease} 
+                        className="px-3 py-1 text-lg text-gray-700 hover:bg-gray-200 transition-colors rounded-l-lg"
+                        aria-label="Decrease quantity"
+                    >
                         -
                     </button>
-                    <span className="px-4 py-1 text-lg font-medium">{item.quantity}</span>
-                    <button onClick={handleIncrease} className="px-3 py-1 text-lg hover:bg-gray-100 rounded-r-lg">
+                    <span className="px-4 py-1 text-lg font-medium bg-gray-50">{item.quantity}</span>
+                    <button 
+                        onClick={handleIncrease} 
+                        className="px-3 py-1 text-lg text-gray-700 hover:bg-gray-200 transition-colors rounded-r-lg"
+                        aria-label="Increase quantity"
+                    >
                         +
                     </button>
                 </div>
 
-                {/* Total Item Price */}
-                <p className="text-xl font-bold w-20 text-right">
+                {/* Total Item Price (Hidden on mobile for better stacking, shown alongside quantity) */}
+                <p className="text-xl font-bold text-gray-800 w-20 text-right hidden sm:block">
                     ${(item.price * item.quantity).toFixed(2)}
                 </p>
 
                 {/* Remove Button */}
-                <button onClick={handleRemove} className="text-red-500 hover:text-red-700 transition-colors">
-                    <span className="text-2xl">🗑️</span>
+                <button 
+                    onClick={handleRemove} 
+                    className="text-red-500 hover:text-red-700 transition-colors p-2 rounded-full hover:bg-red-50"
+                    aria-label="Remove item"
+                >
+                    <span className="text-xl">🗑️</span>
                 </button>
+            </div>
+            
+            {/* Total Item Price for Mobile (Visible only on mobile for better total display) */}
+            <div className="sm:hidden w-full text-right font-bold text-lg pt-2 border-t border-dashed sm:border-none">
+                Subtotal: ${(item.price * item.quantity).toFixed(2)}
             </div>
         </div>
     );
@@ -61,29 +83,33 @@ const CartItem = ({ item }) => {
 
 const CartPage = () => {
     const cartItems = useSelector(state => state.cart);
-    const cartTotal = useSelector(selectCartTotal);
+    // Note: selectCartTotal selector should return a string like "123.45"
+    const cartTotal = useSelector(selectCartTotal); 
 
     return (
         <div className="container mx-auto p-4 max-w-4xl">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">Your Shopping Cart</h2>
+            <h2 className="text-3xl font-extrabold mb-6 text-gray-800 border-b pb-2">Your Shopping Cart</h2>
 
             {cartItems.length === 0 ? (
-                <p className="text-xl text-gray-500 p-8 border rounded-lg bg-gray-50 text-center">Your cart is empty.</p>
+                <p className="text-xl text-gray-500 p-8 border border-gray-300 rounded-xl bg-white shadow-md text-center">
+                    Looks like your cart is lonely. Time to shop!
+                </p>
             ) : (
-                <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+                <div className="bg-white shadow-2xl rounded-xl overflow-hidden">
                     <div className="p-6">
+                        
                         {/* Cart Items List */}
                         {cartItems.map(item => (
                             <CartItem key={item.id} item={item} />
                         ))}
 
-                        {/* Cart Total */}
-                        <div className="mt-6 pt-4 border-t-2 border-gray-200 flex justify-end">
-                            <div className="text-right">
-                                <p className="text-2xl font-bold text-gray-800">
-                                    Cart Total: <span className="text-green-600">${cartTotal}</span>
+                        {/* Cart Total & Checkout Button */}
+                        <div className="mt-8 pt-6 border-t-2 border-gray-200 flex flex-col items-end">
+                            <div className="text-right w-full sm:w-auto">
+                                <p className="text-3xl font-bold text-gray-800 mb-4">
+                                    Grand Total: <span className="text-green-600">${cartTotal}</span>
                                 </p>
-                                <button className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-all">
+                                <button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all transform hover:scale-[1.02]">
                                     Proceed to Checkout
                                 </button>
                             </div>
