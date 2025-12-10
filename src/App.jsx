@@ -1,22 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast'; // Import Toaster
+import Navbar from './components/Navbar';
+import CartPage from './pages/CartPage';
+import WishlistPage from './pages/WishlistPage';
+import HomePage from './pages/Homepage';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-       <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600">Tailwind is Working! 🎉</h1>
+    <Router>
+      <div className="min-h-screen bg-gray-100">
+        <Navbar />
+        <main className="py-8">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
+          </Routes>
+        </main>
+        {/* Toast Notifications */}
+        <Toaster position="bottom-right" />
+      </div>
+    </Router>
+  );
+};
 
-      <button className="mt-6 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
-        Test Button
-      </button>
-    </div>
-    </>
-  )
-}
-
-export default App
+export default App;
