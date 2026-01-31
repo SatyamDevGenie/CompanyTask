@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast'; // Import Toaster
 import Navbar from './components/Navbar';
 import CartPage from './pages/CartPage';
 import WishlistPage from './pages/WishlistPage';
-import HomePage from './pages/Homepage';
+import HomePage from './pages/HomePage';
 
 const App = () => {
   return (

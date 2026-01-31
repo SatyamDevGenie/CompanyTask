@@ -1,93 +1,109 @@
-# E-Commerce Frontend Showcase: Authentication and Cart System
+# E-Commerce Frontend — Company Task
 
-## 🌟 Project Overview
+**A responsive e-commerce frontend with Google Authentication, Shopping Cart, and Wishlist — built with React, Redux Toolkit, and Tailwind CSS. All state is persisted in `localStorage` as per requirements.**
 
-This is a responsive, feature-rich e-commerce frontend application built with React and Tailwind CSS. The primary objective of this project was to implement a robust state management system using **Redux Toolkit** combined with client-side data persistence via `localStorage` for both user authentication and shopping features (Cart and Wishlist), as per the assignment requirements.
+---
 
-| Feature | Status | Persistence |
-| :--- | :--- | :--- |
-| **Google Authentication** | ✅ Implemented | `localStorage` (User) |
-| **Shopping Cart** | ✅ Implemented | `localStorage` (Cart Data) |
-| **Wishlist** | ✅ Implemented | `localStorage` (Wishlist Data) |
-| **Responsive UI** | ✅ Implemented | Tailwind CSS |
-| **Toast Notifications** | ✅ Implemented | `react-hot-toast` |
+## What I Implemented
 
-## 🚀 How to Run Locally
+This project delivers a complete frontend solution with the following **implemented features**:
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone [https://github.com/SatyamDevGenie/CompanyTask.git]
-    # Replace [YOUR-REPO-LINK] with your actual repository URL
-    cd [CompanyTask] 
-    ```
+| # | Feature | Implementation | Persistence |
+|---|---------|----------------|-------------|
+| 1 | **Google Authentication** | Sign in with Google in navbar; profile picture, name, and Logout on success; auto-login on refresh | `localStorage` (user object) |
+| 2 | **Shopping Cart** | Add to cart from product cards; quantity increase/decrease; live cart count in navbar; dedicated Cart page with grand total | `localStorage` (cart state) |
+| 3 | **Wishlist** | Toggle wishlist (heart icon) on each product; Wishlist page with “Move to Cart”; item removed from wishlist when moved | `localStorage` (wishlist state) |
+| 4 | **Responsive UI** | Mobile-first layout; hamburger menu on small screens; responsive product grid (1–4 columns); Tailwind CSS | — |
+| 5 | **Toast Notifications** | Success/error toasts for: add to cart, add/remove wishlist, login, logout | `react-hot-toast` |
 
-2.  **Install Dependencies:**
-    ```bash
-    npm install
-    # or
-    yarn install
-    ```
+**Design decisions:**
 
-3.  **Setup Google OAuth:**
-    * No need to create `.env` file in the root directory.
-    * Add your Google Client ID (obtained from Google Cloud Console):
-        ```
-        Add your [YOUR_CLIENT_ID] generated from your own google account
-        my client ID for Google Auth [315144209098-iaijlrckng2pgpbdpq3dchr9scgo29pd.apps.googleusercontent.com]
-        ```
+- **Logout** clears only the user session; Cart and Wishlist data remain intact.
+- **Duplicate “Add to Cart”** increments quantity in Redux (no duplicate line items).
+- **Redux Toolkit** for all global state; **localStorage** sync on every relevant action for persistence across refreshes.
 
-4.  **Start the Development Server:**
-    ```bash
-    npm start
-    # or
-    yarn start
-    ```
-    The application will open in your browser, usually at `http://localhost:5173`.
+---
 
-## ⚙️ Implemented Features
+## Tech Stack
 
-### 1. Google Authentication (Frontend Only)
+| Layer | Technology |
+|-------|------------|
+| Framework | React 19, Vite 7 |
+| State management | Redux Toolkit |
+| Routing | React Router v7 |
+| Styling | Tailwind CSS v4 |
+| Authentication (UI) | @react-oauth/google, jwt-decode |
+| Notifications | react-hot-toast |
 
-* **Login Flow:** A dedicated **Google Login button** is present in the Navbar when no user is logged in.
-* **Profile Display:** On successful login, the user's **profile picture, name, and a Logout button** replace the Login button in the Navbar. The profile image utilizes robust conditional rendering with a text-initial fallback.
-* **Persistence:** The logged-in user object is stored in `localStorage` and restored via Redux on every page refresh (auto-login).
-* **Logout Integrity:** Logging out **clears the user profile only**, strictly preserving the Cart and Wishlist data, as required.
+---
 
-### 2. Cart System
+## How to Run
 
-* **Add to Cart:** The action handles product duplication by incrementing the quantity using Redux Toolkit reducers.
-* **Navbar Count:** The Cart icon displays a real-time count of unique items.
-* **Cart Page (`/cart`):**
-    * Lists items with name, unit price, and current quantity.
-    * **Quantity Controls:** Allows users to **increase/decrease quantity**. The decrease action handles item removal when the quantity reaches zero.
-    * **Total Price:** The Grand Total is dynamically calculated and displayed using a Redux selector.
-* **Persistence:** The entire cart state persists in `localStorage`.
+**Prerequisites:** Node.js 18+ and npm.
 
-### 3. Wishlist Functionality
+```bash
+git clone https://github.com/SatyamDevGenie/CompanyTask.git
+cd CompanyTask
+npm install
+npm run dev
+```
 
-* **Add to Wishlist:** A toggleable **Heart icon** (`❤️`/`🤍`) is present on every product card.
-* **Wishlist Page (`/wishlist`):** Lists all saved items.
-    * **Move to Cart:** A dedicated button moves the item to the Cart and atomically removes it from the Wishlist, providing clear UX.
-* **Persistence:** The wishlist state persists in `localStorage`.
+Then open **http://localhost:5173**.
 
-### 4. UI / UX and Responsiveness
+**Google Sign-In (optional):**  
+Replace the `GOOGLE_CLIENT_ID` in `src/main.jsx` with your own Client ID from [Google Cloud Console](https://console.cloud.google.com/apis/credentials). Without it, the app runs normally; only the Google login button will fail when clicked.
 
-* **Styling:** All components are styled using **Tailwind CSS**, featuring a clean, professional aesthetic.
-* **Responsiveness:**
-    * **Navbar:** Features a responsive hamburger menu for mobile navigation.
-    * **Home Page:** Uses a highly responsive product grid (`grid-cols-1` to `xl:grid-cols-4`) for optimal product density on all screen sizes.
-    * **Cart/Wishlist Pages:** Item components are designed to fluidly stack content on small screens for better readability.
-* **Toast Notifications:** Uses `react-hot-toast` to provide clear, immediate feedback for all critical user actions (e.g., "Product added to cart!", "Logged out successfully!").
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start development server (Vite, port 5173) |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build locally |
+| `npm run lint` | Run ESLint |
 
-## 📂 Project Structure (Key Files)
+---
 
-| Path | Description |
-| :--- | :--- |
-| `src/components/Navbar.jsx` | Contains all navigation, Google Auth rendering, and live count displays. |
-| `src/data/products.js` | Source for the expanded list of product data. |
-| `src/features/auth/authSlice.js` | Redux slice for user login/logout and persistence logic. |
-| `src/features/cart/cartSlice.js` | Redux slice for cart actions, selectors, and persistence. |
-| `src/features/wishlist/wishlistSlice.js` | Redux slice for wishlist actions and persistence. |
-| `src/pages/HomePage.jsx` | The main product showcase with responsive grid and product cards. |
-| `src/pages/CartPage.jsx` | Handles cart listing, quantity adjustments, and total display. |
-| `src/pages/WishlistPage.jsx` | Handles wishlist listing and "Move to Cart" functionality. |
+## Project Structure (Key Implementations)
+
+| File / path | What it does |
+|-------------|----------------|
+| `src/components/Navbar.jsx` | Navigation, Google Login/Logout, profile display, cart & wishlist counts, mobile hamburger menu |
+| `src/features/auth/authSlice.js` | Auth state, `login` / `logout`, localStorage read/write for user |
+| `src/features/cart/cartSlice.js` | Cart state, add/remove/update quantity, `selectCartCount`, localStorage persistence |
+| `src/features/wishlist/wishlistSlice.js` | Wishlist state, toggle, move-to-cart, localStorage persistence |
+| `src/pages/HomePage.jsx` | Product grid, product cards, “Add to Cart” and wishlist heart toggle |
+| `src/pages/CartPage.jsx` | Cart list, quantity +/- controls, grand total (Redux selector) |
+| `src/pages/WishlistPage.jsx` | Wishlist list, “Move to Cart” (adds to cart and removes from wishlist) |
+| `src/data/products.js` | Product data (8 items) used across the app |
+
+---
+
+## Feature Details
+
+### 1. Google Authentication (frontend only)
+
+- **Login:** “Sign in with Google” in navbar when user is logged out. On success: user name, profile picture, and Logout button shown.
+- **Persistence:** User object stored in `localStorage` and rehydrated on page load (auto-login).
+- **Logout:** Only auth state cleared; Cart and Wishlist are not modified.
+
+### 2. Shopping Cart
+
+- **Add to Cart:** From product cards; same product again increases quantity (no duplicate rows).
+- **Navbar:** Cart link shows live count of items in cart.
+- **Cart page (`/cart`):** Lists each item with name, unit price, quantity; +/- to change quantity; quantity 0 removes the item; grand total computed via Redux selector.
+- **Persistence:** Full cart state saved to `localStorage` on every change.
+
+### 3. Wishlist
+
+- **Toggle:** Heart icon on each product card (filled = in wishlist, outline = not).
+- **Wishlist page (`/wishlist`):** Lists saved items; “Move to Cart” adds item to cart and removes it from wishlist in one action.
+- **Persistence:** Wishlist state saved to `localStorage` on every change.
+
+### 4. UI/UX
+
+- **Styling:** Tailwind CSS; consistent spacing, typography, and colors.
+- **Responsive:** Navbar collapses to hamburger on small screens; product grid from 1 column (mobile) to 4 columns (xl); cart and wishlist pages stack cleanly on mobile.
+- **Feedback:** Toast notifications for all main actions (cart, wishlist, login, logout).
+
+---
+
+*This README documents the implemented scope of the E-Commerce Frontend task: Authentication, Cart, and Wishlist with Redux and localStorage persistence.*
